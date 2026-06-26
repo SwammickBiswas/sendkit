@@ -7,7 +7,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import {
   sendTelegramMessage,
   telegramMessageInputSchema,
-} from "@cwa-dev/sendkit-core";
+} from "@cws-dev/sendkit-core";
 
 const clerkPublishableKey = process.env.CLERK_PUBLISHABLE_KEY;
 const clerkSecretKey = process.env.CLERK_SECRET_KEY;
