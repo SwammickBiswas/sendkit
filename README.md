@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license" /></a>
-  <a href="https://www.npmjs.com/package/@cwa-dev/sendkit"><img src="https://img.shields.io/npm/dw/@cwa-dev/sendkit?label=downloads" alt="Weekly downloads" /></a>
+  <a href="https://www.npmjs.com/package/@cws-dev/sendkit"><img src="https://img.shields.io/npm/dw/@cws-dev/sendkit?label=downloads" alt="Weekly downloads" /></a>
   <a href="https://github.com/code-with-antonio/sendkit"><img src="https://img.shields.io/github/stars/code-with-antonio/sendkit?style=social" alt="GitHub stars" /></a>
   <a href="https://cwa.run/railway"><img src="https://img.shields.io/badge/Railway-deploy-0B0D0E?logo=railway&logoColor=white" alt="Railway" /></a>
   <a href="https://cwa.run/clerk"><img src="https://img.shields.io/badge/Clerk-auth-6C47FF?logo=clerk&logoColor=white" alt="Clerk" /></a>
@@ -27,7 +27,7 @@
 ## Quick Start
 
 ```bash
-npm install -g @cwa-dev/sendkit
+npm install -g @cws-dev/sendkit
 sendkit init --telegram-bot-token "<bot-token>"
 sendkit telegram "<chat-id>" "Hello from SendKit"
 ```
@@ -86,13 +86,13 @@ Start with the section that matches your goal:
 
 ## What Is Included
 
-| Package | Role |
-| --- | --- |
-| `packages/core` | Shared schemas and operations. |
-| `packages/cli` | Human/script CLI adapter. |
+| Package              | Role                                           |
+| -------------------- | ---------------------------------------------- |
+| `packages/core`      | Shared schemas and operations.                 |
+| `packages/cli`       | Human/script CLI adapter.                      |
 | `packages/local-mcp` | Local MCP stdio server adapter for AI clients. |
-| `apps/remote-mcp` | Remote MCP HTTP adapter for deployed clients. |
-| `skills/sendkit` | Agent-facing usage instructions. |
+| `apps/remote-mcp`    | Remote MCP HTTP adapter for deployed clients.  |
+| `skills/sendkit`     | Agent-facing usage instructions.               |
 
 ## Prerequisites
 
@@ -110,7 +110,7 @@ Use this path when you want the published SendKit tools, not the source workspac
 Install the CLI globally:
 
 ```bash
-npm install -g @cwa-dev/sendkit
+npm install -g @cws-dev/sendkit
 ```
 
 Configure your Telegram bot token:
@@ -148,7 +148,7 @@ CLI config is stored at `~/.config/sendkit/config.json`.
 Install the local MCP stdio server globally:
 
 ```bash
-npm install -g @cwa-dev/sendkit-mcp
+npm install -g @cws-dev/sendkit-mcp
 ```
 
 Configure your MCP client to run `sendkit-mcp` and pass `TELEGRAM_BOT_TOKEN` through the server environment:
@@ -174,7 +174,7 @@ If your MCP client can execute npm packages directly, skip the global install:
   "mcpServers": {
     "sendkit": {
       "command": "npx",
-      "args": ["-y", "@cwa-dev/sendkit-mcp"],
+      "args": ["-y", "@cws-dev/sendkit-mcp"],
       "environment": {
         "TELEGRAM_BOT_TOKEN": "<bot-token>"
       }
@@ -197,7 +197,7 @@ Install the SendKit Skill with your skill manager:
 npx skills add https://github.com/code-with-antonio/sendkit/tree/main/skills/sendkit
 ```
 
-The Skill tells agents when to use the MCP `telegram` tool, when to fall back to the CLI, why `--json` matters for parsing, and why `@cwa-dev/sendkit-core` is only an implementation detail.
+The Skill tells agents when to use the MCP `telegram` tool, when to fall back to the CLI, why `--json` matters for parsing, and why `@cws-dev/sendkit-core` is only an implementation detail.
 
 CLI fallback example from the Skill:
 
@@ -425,7 +425,7 @@ TELEGRAM_BOT_TOKEN="<bot-token>" bun run dev:local-mcp
 CLERK_PUBLISHABLE_KEY="<publishable-key>" CLERK_SECRET_KEY="<secret-key>" bun run dev:remote-mcp
 ```
 
-Manual remote verification should confirm the server fails clearly without Clerk env vars, the metadata route returns public Clerk protected resource metadata, missing or invalid `Authorization` returns `401` with `WWW-Authenticate`, valid Clerk OAuth reaches MCP initialization, and the remote `telegram` MCP tool calls `@cwa-dev/sendkit-core` without exposing `botToken` in the tool input schema.
+Manual remote verification should confirm the server fails clearly without Clerk env vars, the metadata route returns public Clerk protected resource metadata, missing or invalid `Authorization` returns `401` with `WWW-Authenticate`, valid Clerk OAuth reaches MCP initialization, and the remote `telegram` MCP tool calls `@cws-dev/sendkit-core` without exposing `botToken` in the tool input schema.
 
 ## Architecture Details
 
@@ -433,8 +433,8 @@ Dependency direction:
 
 ```mermaid
 flowchart TD
-    CLI["@cwa-dev/sendkit<br/>(CLI)"] --> CORE["@cwa-dev/sendkit-core"]
-    MCP["@cwa-dev/sendkit-mcp<br/>(local MCP)"] --> CORE
+    CLI["@cws-dev/sendkit<br/>(CLI)"] --> CORE["@cws-dev/sendkit-core"]
+    MCP["@cws-dev/sendkit-mcp<br/>(local MCP)"] --> CORE
     REMOTE["sendkit-remote-mcp<br/>(remote MCP)"] --> CORE
     SKILL["sendkit-skill<br/>(docs / instructions only)"] -.-> CORE
 ```
@@ -450,21 +450,21 @@ flowchart TD
 
 - Defines `sendkit telegram <chatId> <message>`.
 - Parses command arguments with Commander.
-- Calls `@cwa-dev/sendkit-core` functions.
+- Calls `@cws-dev/sendkit-core` functions.
 - Prints readable output by default.
 - Supports `--json` for scriptable and agent-readable output.
 
 `packages/local-mcp` owns local MCP stdio usage:
 
 - Creates an MCP stdio server.
-- Registers a `telegram` tool backed by `@cwa-dev/sendkit-core`.
+- Registers a `telegram` tool backed by `@cws-dev/sendkit-core`.
 - Uses the shared Telegram message input schema.
 - Returns both `content` and `structuredContent`.
 
 `apps/remote-mcp` owns remote MCP HTTP usage:
 
 - Creates a Hono HTTP app exposing `/:botToken/mcp`, run by Bun in development.
-- Registers a `telegram` tool backed by `@cwa-dev/sendkit-core`.
+- Registers a `telegram` tool backed by `@cws-dev/sendkit-core`.
 - Reads the Telegram bot token from the URL path per request.
 - Keeps the token out of the MCP tool input schema.
 - Closes the per-request MCP server after handling the request.
@@ -473,7 +473,7 @@ flowchart TD
 
 - Prefers the MCP `telegram` tool when available.
 - Documents CLI fallback usage.
-- Explains that `@cwa-dev/sendkit-core` is an implementation detail.
+- Explains that `@cws-dev/sendkit-core` is an implementation detail.
 - Avoids duplicating business logic.
 
 ## Telegram Operation
@@ -489,17 +489,17 @@ MCP tool:      telegram
 Skill usage:   telegram
 ```
 
-Telegram messages are sent through the Telegram Bot API. The CLI reads the bot token from local user config created by `sendkit init`. The local MCP server reads `TELEGRAM_BOT_TOKEN` from the MCP client-provided server environment. The remote MCP server reads the token from the per-request MCP URL path. All adapters pass the token into `@cwa-dev/sendkit-core`; it is not exposed as an MCP tool argument.
+Telegram messages are sent through the Telegram Bot API. The CLI reads the bot token from local user config created by `sendkit init`. The local MCP server reads `TELEGRAM_BOT_TOKEN` from the MCP client-provided server environment. The remote MCP server reads the token from the per-request MCP URL path. All adapters pass the token into `@cws-dev/sendkit-core`; it is not exposed as an MCP tool argument.
 
 ## Publish Packages To NPM
 
 This section is for SendKit maintainers and fork authors publishing adapted packages. Normal users can skip it.
 
-`@cwa-dev/sendkit-core` is the shared implementation package used by the CLI, MCP servers, and downstream programmatic consumers. Publish it from `packages/core`, not from the repository root.
+`@cws-dev/sendkit-core` is the shared implementation package used by the CLI, MCP servers, and downstream programmatic consumers. Publish it from `packages/core`, not from the repository root.
 
-`@cwa-dev/sendkit` is the published CLI package. It depends on the published core package, so publish core first whenever a release includes core changes.
+`@cws-dev/sendkit` is the published CLI package. It depends on the published core package, so publish core first whenever a release includes core changes.
 
-`@cwa-dev/sendkit-mcp` is the published local MCP stdio server package. It also depends on the published core package, so publish core first whenever a release includes core changes.
+`@cws-dev/sendkit-mcp` is the published local MCP stdio server package. It also depends on the published core package, so publish core first whenever a release includes core changes.
 
 ### Version Bumps
 
@@ -509,7 +509,7 @@ If core changed, bump `packages/core/package.json` first:
 
 ```json
 {
-  "name": "@cwa-dev/sendkit-core",
+  "name": "@cws-dev/sendkit-core",
   "version": "0.1.4"
 }
 ```
@@ -581,12 +581,12 @@ npm login
 After publishing, verify the package metadata:
 
 ```bash
-npm view @cwa-dev/sendkit-core version
+npm view @cws-dev/sendkit-core version
 ```
 
 ### Publish CLI
 
-Publish the CLI only after the matching `@cwa-dev/sendkit-core` version is already on npm, since `bun publish` resolves the `workspace:*` dependency to the current core version at publish time.
+Publish the CLI only after the matching `@cws-dev/sendkit-core` version is already on npm, since `bun publish` resolves the `workspace:*` dependency to the current core version at publish time.
 
 Run the CLI publish workflow:
 
@@ -609,16 +609,16 @@ The dry run should not include `src/`, `node_modules/`, or `tsconfig.build.json`
 After publishing, verify the package metadata and installed binary:
 
 ```bash
-npm view @cwa-dev/sendkit version
-npm install -g @cwa-dev/sendkit
+npm view @cws-dev/sendkit version
+npm install -g @cws-dev/sendkit
 sendkit --help
 sendkit --version
-npm uninstall -g @cwa-dev/sendkit
+npm uninstall -g @cws-dev/sendkit
 ```
 
 ### Publish Local MCP
 
-Publish the local MCP package only after the matching `@cwa-dev/sendkit-core` version is already on npm, since `bun publish` resolves the `workspace:*` dependency to the current core version at publish time.
+Publish the local MCP package only after the matching `@cws-dev/sendkit-core` version is already on npm, since `bun publish` resolves the `workspace:*` dependency to the current core version at publish time.
 
 Run the local MCP publish workflow:
 
@@ -641,10 +641,10 @@ The dry run should not include `src/`, `node_modules/`, or `tsconfig.build.json`
 After publishing, verify the package metadata and installed binary:
 
 ```bash
-npm view @cwa-dev/sendkit-mcp version
-npm install -g @cwa-dev/sendkit-mcp
+npm view @cws-dev/sendkit-mcp version
+npm install -g @cws-dev/sendkit-mcp
 command -v sendkit-mcp
-npm uninstall -g @cwa-dev/sendkit-mcp
+npm uninstall -g @cws-dev/sendkit-mcp
 ```
 
 To manually verify runtime startup, run `TELEGRAM_BOT_TOKEN="<bot-token>" sendkit-mcp` and stop the stdio server with `Ctrl-C`.
@@ -657,7 +657,7 @@ If TypeScript cannot resolve workspace packages, confirm each package has `"type
 
 If the MCP server appears to hang, that is expected for stdio mode. It waits for MCP client messages until the process is stopped.
 
-If an MCP client cannot start the server, confirm the command is available on `PATH`, use `npx -y @cwa-dev/sendkit-mcp`, or use an absolute path in local development config.
+If an MCP client cannot start the server, confirm the command is available on `PATH`, use `npx -y @cws-dev/sendkit-mcp`, or use an absolute path in local development config.
 
 If CLI output is difficult to parse in scripts, pass `--json` and parse stdout as JSON.
 
