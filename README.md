@@ -32,7 +32,7 @@ sendkit init --telegram-bot-token "<bot-token>"
 sendkit telegram "<chat-id>" "Hello from SendKit"
 ```
 
-<details>
+<!-- <details>
 <summary><strong>Table of contents</strong></summary>
 
 - [Video Tutorial](#video-tutorial)
@@ -48,7 +48,7 @@ sendkit telegram "<chat-id>" "Hello from SendKit"
 - [Publish Packages To NPM](#publish-packages-to-npm)
 - [Troubleshooting](#troubleshooting)
 
-</details>
+</details> -->
 
 <!-- ## Video Tutorial
 
