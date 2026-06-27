@@ -50,13 +50,13 @@ sendkit telegram "<chat-id>" "Hello from SendKit"
 
 </details>
 
-## Video Tutorial
+<!-- ## Video Tutorial
 
 This repository is built from scratch, step by step, in a 4-hour tutorial:
 
 **[The Only Guide You Need to Build Claude Skills and MCP Servers ▶](https://www.youtube.com/watch?v=YKIUt9ytxIE)**
 
-It walks through the entire `core -> CLI -> MCP -> Skill` pattern, including the local and remote MCP adapters and Clerk-protected remote deployment.
+It walks through the entire `core -> CLI -> MCP -> Skill` pattern, including the local and remote MCP adapters and Clerk-protected remote deployment. -->
 
 ## What Is SendKit?
 
