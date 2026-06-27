@@ -12,8 +12,8 @@
   "dependencies": {
     "@clerk/backend": "^3.8.2",
     "@clerk/mcp-tools": "^0.5.0",
+    "@cws-dev/sendkit-core": "0.0.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "hono": "^4.12.23",
-    "@cws-dev/sendkit-core": "0.0.0"
+    "hono": "^4.12.23"
   }
 }

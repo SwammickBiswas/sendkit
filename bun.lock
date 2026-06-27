@@ -45,7 +45,7 @@
     },
     "packages/local-mcp": {
       "name": "@cws-dev/sendkit-mcp",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "bin": {
         "sendkit-mcp": "./dist/index.js",
       },

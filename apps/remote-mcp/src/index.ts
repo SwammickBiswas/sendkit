@@ -3,7 +3,6 @@ import { createClerkClient } from "@clerk/backend";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { generateClerkProtectedResourceMetadata } from "@clerk/mcp-tools/server";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
-
 import {
   sendTelegramMessage,
   telegramMessageInputSchema,
