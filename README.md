@@ -8,9 +8,9 @@
   Build agent-ready tools with one shared TypeScript core for MCP, CLI, and Skills.
 </p>
 
-<p align="center">
+<!-- <p align="center">
   by <a href="https://x.com/codewithantonio">@codewithantonio</a>
-</p>
+</p> -->
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license" /></a>
