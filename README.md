@@ -15,7 +15,7 @@
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license" /></a>
   <a href="https://www.npmjs.com/package/@cws-dev/sendkit"><img src="https://img.shields.io/npm/dw/@cws-dev/sendkit?label=downloads" alt="Weekly downloads" /></a>
-  <a href="https://github.com/code-with-antonio/sendkit"><img src="https://img.shields.io/github/stars/code-with-antonio/sendkit?style=social" alt="GitHub stars" /></a>
+  <a href="https://github.com/SwammickBiswas/sendkit"><img src="https://img.shields.io/github/stars/code-with-antonio/sendkit?style=social" alt="GitHub stars" /></a>
   <a href="https://cwa.run/railway"><img src="https://img.shields.io/badge/Railway-deploy-0B0D0E?logo=railway&logoColor=white" alt="Railway" /></a>
   <a href="https://cwa.run/clerk"><img src="https://img.shields.io/badge/Clerk-auth-6C47FF?logo=clerk&logoColor=white" alt="Clerk" /></a>
 </p>
